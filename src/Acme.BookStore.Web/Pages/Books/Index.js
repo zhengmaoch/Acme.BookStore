@@ -2,7 +2,7 @@ $(function () {
     var l = abp.localization.getResource('BookStore');
 
     var dataTable = $('#BooksTable').DataTable(
-        abp.libs.dataTables.normalizeConfiguration({
+        abp.libs.datatables.normalizeConfiguration({
             serverSide: true,
             paging: true,
             order: [[1, "asc"]],
@@ -37,13 +37,12 @@ $(function () {
                     data: "price"
                 },
                 {
-                    title: l('CreationTime'),
-                    data: "creationTime",
+                    title: l('CreationTime'), data: "creationTime",
                     render: function (data) {
                         return luxon
                             .DateTime
                             .fromISO(data, {
-                                local: abp.localization.currentCulture.name
+                                locale: abp.localization.currentCulture.name
                             }).toLocaleString(luxon.DateTime.DATETIME_SHORT);
                     }
                 }
