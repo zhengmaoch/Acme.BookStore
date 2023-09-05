@@ -13,17 +13,17 @@ $(function () {
             ajax: abp.libs.datatables.createAjax(acme.bookStore.books.book.getList),
             columnDefs: [
                 {
-                    title: l('Action'),
+                    title: l('Actions'),
                     rowAction: {
                         items:
                             [
                                 {
                                     text: l('Edit'),
                                     action: function (data) {
-                                        editModal.open({ id: data.reload.id });
+                                        editModal.open({ id: data.record.id });
                                     }
                                 }
-                        ]
+                            ]
                     }
                 },
                 {
@@ -40,13 +40,7 @@ $(function () {
                 {
                     title: l('PublishDate'),
                     data: "publishDate",
-                    render: function (data) {
-                        return luxon
-                            .DateTime
-                            .fromISO(data, {
-                                locale: abp.localization.currentCulture.name
-                            }).toLocaleString();
-                    }
+                    dataFormat: "datetime"
                 },
                 {
                     title: l('Price'),
@@ -54,13 +48,7 @@ $(function () {
                 },
                 {
                     title: l('CreationTime'), data: "creationTime",
-                    render: function (data) {
-                        return luxon
-                            .DateTime
-                            .fromISO(data, {
-                                locale: abp.localization.currentCulture.name
-                            }).toLocaleString(luxon.DateTime.DATETIME_SHORT);
-                    }
+                    dataFormat: "datetime"
                 }
             ]
         })
@@ -77,5 +65,5 @@ $(function () {
     $('#NewBookButton').click(function (e) {
         e.preventDefault();
         createModal.open();
-    })
+    });
 });
